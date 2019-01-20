@@ -51,7 +51,7 @@ public class JetsApplication {
 		String temp = sc.next();
 		if (temp.equalsIgnoreCase("q")) {
 		    break;
-		}else {
+		} else {
 		    continue;
 		}
 	    } catch (Exception e) {
@@ -154,7 +154,10 @@ public class JetsApplication {
 		    Pilot pilot;
 
 		    try {
-			System.out.print("\nAdding new jet to fleet.\n\tModel: ");
+			System.out.print("\nAdding new jet to fleet.");
+			System.out.print("\n\tType: (1)Cargo / (2)Fighter / (3)Generic: ");
+			type = Integer.parseInt(sc.next());
+			System.out.print("\n\tModel: ");
 			model = sc.next();
 			System.out.print("\n\tSpeed: ");
 			speed = sc.nextDouble();
@@ -169,16 +172,18 @@ public class JetsApplication {
 			} else {
 			    pilot = pilots.choosePilot(sc);
 			}
+			if (pilot == null)
+			    break;
 
-			System.out.print("\n\tType: (1)Cargo / (2)Fighter: ");
-			type = Integer.parseInt(sc.next());
 			if (type == 1) {
 			    j = new CargoPlane(model, speed, range, price, pilot);
-			} else {
+			} else if (type == 2) {
 			    j = new FighterJet(model, speed, range, price, pilot);
+			} else {
+			    j = new JetImpl(model, speed, range, price, pilot);
 			}
 			airField.addJet(j);
-			System.out.println("Added new jet: " + j.toString());
+			System.out.println("\nAdded new jet: " + j.toString());
 		    } catch (Exception e) {
 			System.out.print("Invalid entry, try again? (y/n) ");
 			if (sc.nextLine().equalsIgnoreCase("n")) {
