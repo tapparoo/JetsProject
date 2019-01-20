@@ -21,22 +21,42 @@ public class JetsApplication {
 	airField.addJet(new FighterJet("B-2 Spirit", 630, 6900, 737_000_000));
 	airField.addJet(new FighterJet("F-35 Lightning II", 1200, 1200, 107_700_000));
 
+	PilotList pilots = new PilotList();
+	Pilot[] ps = {
+		new Pilot("John"),
+		new Pilot("Adam"),
+		new Pilot("Todd"),
+		new Pilot("Anna"),
+		new Pilot("Ebru"),
+		new Pilot("Jesse"),
+		new Pilot("Steve"),
+		new Pilot("Young"),
+		new Pilot("Denise"),
+		new Pilot("Bruce") };
+	
+	for (Pilot p : ps) {
+	    pilots.add(p);
+	}
+
 	while (true) {
 	    displayUserMenu();
 	    try {
 		System.out.print(">> ");
-		choice = Integer.parseInt(sc.next());
+		choice = Integer.parseInt(sc.nextLine());
+		if (choice == 9) {
+		    break;
+		}
 		doMenuChoice(airField, choice, sc);
-		System.out.print("\nAny key to continue, or (Q)uit: ");
 	    } catch (Exception e) {
 		System.out.print("\nInvalid input.  Try again? (y/n) ");
-		if (sc.next().equalsIgnoreCase("n")) {
+		if (sc.nextLine().equalsIgnoreCase("n")) {
 		    break;
 		} else {
 		    continue;
 		}
 	    }
-	    if (sc.next().equalsIgnoreCase("q")) {
+	    System.out.print("\nAny key to continue, or (Q)uit: ");
+	    if (sc.nextLine().equalsIgnoreCase("q")) {
 		break;
 	    }
 	}
@@ -45,10 +65,11 @@ public class JetsApplication {
 
     private void displayUserMenu() {
 	System.out.println("\n\t ---------------------------\n\t" + "|1. List fleet              |\n\t"
-		+ "|2. Fly all jets            |\n\t" + "|3. View fastest jet        |\n\t"
-		+ "|4. View jet w/longest range|\n\t" + "|5. Load all Cargo jets     |\n\t"
-		+ "|6. Dogfight!               |\n\t" + "|7. Add a jet to Fleet      |\n\t"
-		+ "|8. Quit                    |\n\t" + " ---------------------------");
+		+ "|2. Fly individual jet      |\n\t" + "|3. Fly all jets            |\n\t"
+		+ "|4. View fastest jet        |\n\t" + "|5. View jet w/longest range|\n\t"
+		+ "|6. Load all Cargo jets     |\n\t" + "|7. Dogfight!               |\n\t"
+		+ "|8. Add a jet to Fleet      |\n\t" + "|9. Quit                    |\n\t"
+		+ " ---------------------------");
     }
 
     private void doMenuChoice(AirField airField, int choice, Scanner sc) {
@@ -57,9 +78,17 @@ public class JetsApplication {
 		System.out.println(airField.listFleet());
 		break;
 	    case 2:
-		airField.flyAllJets();
+		System.out.println("Select a jet to fly: ");
+		int counter = 0;
+		for (Jet j : airField.getJets()) {
+		    System.out.println("\t" + ++counter + ": " + j.getModel());
+		}
+		airField.getJets().get(sc.nextInt() - 1).fly();
 		break;
 	    case 3:
+		airField.flyAllJets();
+		break;
+	    case 4:
 		Jet fastestJet = airField.getJets().get(0);
 		for (Jet jet : airField.getJets()) {
 		    if (jet.getSpeed() > fastestJet.getSpeed()) {
@@ -68,7 +97,7 @@ public class JetsApplication {
 		}
 		System.out.println("Fastest jet: " + fastestJet.toString());
 		break;
-	    case 4:
+	    case 5:
 		Jet furthestRangeJet = airField.getJets().get(0);
 		for (Jet jet : airField.getJets()) {
 		    if (jet.getRange() > furthestRangeJet.getRange()) {
@@ -77,14 +106,14 @@ public class JetsApplication {
 		}
 		System.out.println("Jet w/longest range: " + furthestRangeJet.toString());
 		break;
-	    case 5:
+	    case 6:
 		for (Jet jet : airField.getJets()) {
 		    if (jet instanceof CargoCarrier) {
 			((CargoCarrier) jet).loadCargo();
 		    }
 		}
 		break;
-	    case 6:
+	    case 7:
 		ArrayList<Jet> jetsArrList = airField.getJets();
 		ArrayList<Jet> combatJets = new ArrayList<Jet>();
 
@@ -108,7 +137,7 @@ public class JetsApplication {
 		    }
 		}
 		break;
-	    case 7:
+	    case 8:
 		Jet j;
 
 		while (true) {
@@ -120,7 +149,7 @@ public class JetsApplication {
 
 		    try {
 			System.out.print("\nAdding new jet to fleet.\n\tModel: ");
-			model = sc.next();
+			model = sc.nextLine();
 			System.out.print("\n\tSpeed: ");
 			speed = sc.nextDouble();
 			System.out.print("\n\tRange: ");
@@ -132,21 +161,23 @@ public class JetsApplication {
 			type = sc.nextInt();
 			if (type == 1) {
 			    j = new CargoPlane(model, speed, range, price);
-			}else {
+			} else {
 			    j = new FighterJet(model, speed, range, price);
 			}
 			airField.addJet(j);
+			System.out.println("Added new jet: " + j.toString());
 		    } catch (Exception e) {
 			System.out.print("Invalid entry, try again? (y/n) ");
-			if (sc.next().equalsIgnoreCase("n")) {
+			if (sc.nextLine().equalsIgnoreCase("n")) {
 			    break;
 			}
 		    }
-		    System.out.println("Added new jet");
 		    break;
 		}
 		break;
-
+	    default:
+		System.out.println("Invalid selection.  Try again!");
+		break;
 	}
     }
 }
