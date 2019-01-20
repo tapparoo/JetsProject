@@ -2,7 +2,8 @@ package com.skilldistillery.jets;
 
 public class Pilot extends Person {
     private boolean licensed, working;
-    
+    private Jet assignedTo;
+
     public Pilot(String name) {
 	this(name, true);
     }
@@ -31,6 +32,14 @@ public class Pilot extends Person {
 
     public void setWorking(boolean working) {
         this.working = working;
+    }
+    
+    public Jet getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(Jet assignedTo) {
+        this.assignedTo = assignedTo;
     }
     
 }

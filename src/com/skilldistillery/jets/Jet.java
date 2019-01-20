@@ -5,12 +5,16 @@ public abstract class Jet {
     private double speed;
     private int range;
     private long price;
+    private Pilot pilot;
 
-    public Jet(String model, double speed, int range, long price) {
+    public Jet(String model, double speed, int range, long price, Pilot pilot) {
 	this.model = model;
 	this.speed = speed;
 	this.range = range;
 	this.price = price;
+	this.pilot = pilot;
+	pilot.setWorking(true);
+	pilot.setAssignedTo(this);
     }
 
     public void fly() {
@@ -19,8 +23,9 @@ public abstract class Jet {
 	out += String.format("%n                Speed: %1$.1f mph / Mach %2$.4f", speed, getSpeedInMach());
 	out += String.format("%n                Range: %,d miles", range);
 	out += String.format("%n      Max Flight Time: %.2f hours", getMaxFlightTime());
-	
-	System.out.println(out);;
+	out += String.format("%n                Pilot: %2$s", getMaxFlightTime(), pilot.getName());
+
+	System.out.println(out);
     }
 
     public double getSpeedInMach() {
@@ -58,13 +63,22 @@ public abstract class Jet {
     public void setPrice(long price) {
 	this.price = price;
     }
-    
+
     public double getMaxFlightTime() {
-	return (double)Math.round((range / speed) * 100) / 100;
+	return (double) Math.round((range / speed) * 100) / 100;
+    }
+
+    public Pilot getPilot() {
+	return pilot;
+    }
+
+    public void setPilot(Pilot pilot) {
+	this.pilot = pilot;
     }
 
     @Override
     public String toString() {
-	return this.getClass().getSimpleName() + " [model=" + model + ", speed=" + speed + ", range=" + range + ", price=" + price + "]";
+	return this.getClass().getSimpleName() + " [model=" + model + ", speed=" + speed + ", range=" + range
+		+ ", price=" + price + ", pilot=" + pilot.getName() + "]";
     }
 }
