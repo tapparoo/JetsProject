@@ -23,10 +23,10 @@ public class JetsApplication {
 		new Pilot("Anna"),
 		new Pilot("Ebru"),
 		new Pilot("Jesse"),
-		new Pilot("Steve"),
+		new Pilot("Mark"),
 		new Pilot("Young"),
-		new Pilot("Denise"),
-		new Pilot("Bruce") };
+		new Pilot("Greg"),
+		new Pilot("Eric") };
 
 	for (Pilot p : ps) {
 	    pilots.add(p);
@@ -38,22 +38,25 @@ public class JetsApplication {
 	airField.addJet(new FighterJet("B-2 Spirit", 630, 6900, 737_000_000, pilots.getRandomPilot()));
 	airField.addJet(new FighterJet("F-35 Lightning II", 1200, 1200, 107_700_000, pilots.getRandomPilot()));
 
+	// Run app
 	while (true) {
 	    displayUserMenu();
 	    try {
-		choice = Integer.parseInt(sc.nextLine());
+		choice = Integer.parseInt(sc.next());
 		if (choice == 9) {
 		    break;
 		}
 		doMenuChoice(airField, choice, sc, pilots);
 		System.out.print("\nAny key to continue, or (Q)uit: ");
-		String temp = sc.nextLine();
+		String temp = sc.next();
 		if (temp.equalsIgnoreCase("q")) {
 		    break;
+		}else {
+		    continue;
 		}
 	    } catch (Exception e) {
 		System.out.print("\nInvalid input.  Try again? (y/n) ");
-		if (sc.nextLine().equalsIgnoreCase("n")) {
+		if (sc.next().equalsIgnoreCase("n")) {
 		    break;
 		} else {
 		    continue;
@@ -85,7 +88,7 @@ public class JetsApplication {
 		for (Jet j : airField.getJets()) {
 		    System.out.println("\t" + ++counter + ": " + j.getModel());
 		}
-		airField.getJets().get(sc.nextInt() - 1).fly();
+		airField.getJets().get(Integer.parseInt(sc.next()) - 1).fly();
 		break;
 	    case 3:
 		airField.flyAllJets();
@@ -167,8 +170,8 @@ public class JetsApplication {
 			    pilot = pilots.choosePilot(sc);
 			}
 
-			System.out.print("\n\tType: (1)Cargo / (2)Fighter)");
-			type = sc.nextInt();
+			System.out.print("\n\tType: (1)Cargo / (2)Fighter: ");
+			type = Integer.parseInt(sc.next());
 			if (type == 1) {
 			    j = new CargoPlane(model, speed, range, price, pilot);
 			} else {

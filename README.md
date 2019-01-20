@@ -1,6 +1,12 @@
 ## Jets Application
+This application simulates an airfield with a number of pre-generated jet aircraft.  
+Users can perform various self-explanatory tasks by interacting with the provided menu.
 
-Description
+![User menu](https://github.com/tapparoo/JetsProject/tree/master/src/com/skilldistillery/jets/src/images/Jets_menu.jpg)
+
+The app is run only on the console and can be started with the following commands:
+1. javac JetsApplication.java
+2. java JetsApplication
 
 ### Technologies
 * Java
@@ -12,4 +18,4 @@ Description
 * UML
 
 
-Image, maybe the UML downloaded from Skill Distillery's GitHub page.
+![UML diagram](https://github.com/tapparoo/JetsProject/tree/master/src/com/skilldistillery/jets/src/images/Jets_UML.jpg)

@@ -31,11 +31,11 @@ public class PilotList {
 		System.out.println("\n\t" + i + ": " + p.getName() + " / Licensed: " + p.isLicensed() + " / Available: " + !p.isWorking());
 	    }
 	    try {
-		p = available.get(sc.nextInt());
+		p = available.get(Integer.parseInt(sc.next()));
 		break;
 	    }catch(Exception e) {
-		System.out.print("Invalid selection. Picking a pilot at random.");
 		p = getRandomPilot();
+		System.out.print("Invalid selection. Choosing pilot at random...." + p.getName() + "!");
 		break;
 	    }
 	}

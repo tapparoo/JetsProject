@@ -7,14 +7,14 @@ public abstract class Jet {
     private long price;
     private Pilot pilot;
 
-    public Jet(String model, double speed, int range, long price, Pilot pilot) {
-	this.model = model;
-	this.speed = speed;
-	this.range = range;
+    public Jet(String m, double s, int r, long price, Pilot p) {
+	this.model = m;
+	this.speed = s;
+	this.range = r;
 	this.price = price;
-	this.pilot = pilot;
-	pilot.setWorking(true);
-	pilot.setAssignedTo(this);
+	this.pilot = p;
+	p.setWorking(true);
+	p.setAssignedTo(this);
     }
 
     public void fly() {
