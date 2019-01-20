@@ -2,7 +2,7 @@
 This application simulates an airfield with a number of pre-generated jet aircraft.  
 Users can perform various self-explanatory tasks by interacting with the provided menu.
 
-![User menu](https://github.com/tapparoo/JetsProject/blob/master/src/images/Jets_menu.jpg)
+![User menu](https://github.com/tapparoo/JetsProject/blob/master/src/images/Jets_menu.png)
 
 The app is run only on the console and can be started with the following commands:
 1. javac JetsApplication.java
