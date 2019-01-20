@@ -3,15 +3,29 @@ package com.skilldistillery.jets;
 import java.util.ArrayList;
 
 public class AirField {
-    ArrayList<Jet> jets = new ArrayList<Jet>();
+    private ArrayList<Jet> jets = new ArrayList<Jet>();
 
     public ArrayList<Jet> getJets() {
-        return jets;
+	return jets;
     }
 
     public void addJet(Jet jet) {
 	jets.add(jet);
     }
-    
-    
+
+    public void flyAllJets() {
+	for (Jet jet : jets) {
+	    jet.fly();
+	}
+    }
+
+    public String listFleet() {
+	String out = "";
+	for (Jet jet : getJets()) {
+	    out += String.format("[%s] - Speed: %.1f / Range: %,d miles / Unit Cost: $%,d%n", jet.getModel(),
+		    jet.getSpeed(), jet.getRange(), jet.getPrice());
+	}
+	return out;
+    }
+
 }
